@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <h1>{{ dynamicData.pageTitle }}</h1>
-    <p v-html="dynamicData.pageContent"></p>
+  <div class = "container mx-auto my-8 p-8  bg-sky-500 text-white rounded shadow-lg">
+    <h1 class="text-3xl font-bold mb-4">{{ dynamicData.pageTitle }}</h1>
+    <p class="text-white" v-html="dynamicData.pageContent"></p>
   </div>
 </template>
 
@@ -33,6 +33,4 @@ export default {
 };
 </script>
 
-<style scoped>
-/* Add your styling here */
-</style>
+

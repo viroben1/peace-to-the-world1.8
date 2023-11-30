@@ -37,7 +37,5 @@
   };
   </script>
   
-  <style scoped>
-  /* Styles for the view, if needed */
-  </style>
+  
   

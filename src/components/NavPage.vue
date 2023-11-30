@@ -42,7 +42,5 @@
   };
   </script>
   
-  <style scoped>
-  /* Add your styling here */
-  </style>
+  
   

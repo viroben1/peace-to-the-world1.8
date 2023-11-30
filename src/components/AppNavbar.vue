@@ -75,10 +75,4 @@ export default {
 
 </script>
 
-<style scoped>
-/* Add your styling here */
-.active {
-  background-color: white;
-  color: black;
-}
-</style>
+

@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ 'HomePage': true, 'bg-gray-100': true, 'p-8': true, 'hidden': isPolicyPage }">
+  <div :class="{ 'HomePage': true, ' bg-indigo-100': true, 'p-8': true, 'hidden': isPolicyPage }">
     <header class="text-center">
       <h1 class="text-4xl font-bold text-blue-600">Welcome to the International Flag of Peace</h1>
     </header>
@@ -52,11 +52,5 @@ export default {
 };
 </script>
 
-<style scoped>
-/* Add your component-specific styles here */
-.HomePage {
-  background-color: #f0f0f0; /* Example background color */
-  padding: 20px; /* Example padding */
-}
-</style>
+
 

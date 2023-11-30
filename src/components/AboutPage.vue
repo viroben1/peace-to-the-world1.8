@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-gray-100 p-6 text-sky-700">
+    <div class="bg-indigo-100 p-6 text-sky-700">
       <h1 class="text-3xl font-semibold mb-4">{{ title }}</h1>
       <p class="text-lg mb-4">
         {{ welcomeMessage }}
@@ -53,7 +53,5 @@
   };
   </script>
   
-  <style scoped>
-  /* Add your styling here */
-  </style>
+  
   
