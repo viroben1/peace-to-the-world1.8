@@ -8,8 +8,14 @@ const contentData = {
     '/about': 'Content for the About page',
     '/flag': 'Content for the Flag page',
   };
-  
-  const pageData = {
+  const generatePageData = (pageName) => {
+    return {
+      title: `${pageName} Title`,
+      welcomeMessage: `Welcome to the ${pageName} page.`,
+      // Add other properties as needed
+    };
+  };
+  const aboutContent = {
     'about': {
       title: 'About the International Flag of Peace',
       welcomeMessage: 'Welcome to the International Flag of Peace project. Our mission is to promote peace, unity, kindness, and tolerance among people from all walks of life, and every place in the world. This flag represents our commitment to a world where love, understanding, and compassion prevail.',
@@ -65,17 +71,30 @@ const contentData = {
 // Enable CORS for all routes
 app.use(cors());
 
+// Function to generate page data based on page name
+
+
 app.get('/api/pages/:pageName', (req, res) => {
   const { pageName } = req.params;
 
-  if (pageData[pageName]) {
-    res.json(pageData[pageName]);
-  } else if (policyPages[pageName]) {
-    res.json(policyPages[pageName]);
+  // Check if the page exists in aboutContent
+  if (aboutContent[pageName]) {
+    res.json(aboutContent[pageName]);
   } else {
-    res.status(404).json({ error: 'Page not found' });
+    // Generate default page data if not found in specific content
+    const pageData = generatePageData(pageName);
+
+    // Use existing logic for other pages
+    if (pageData[pageName]) {
+      res.json(pageData[pageName]);
+    } else if (policyPages[pageName]) {
+      res.json(policyPages[pageName]);
+    } else {
+      res.status(404).json({ error: 'Page not found' });
+    }
   }
 });
+
 
   app.get('/api/pages/terms-conditions', (req, res) => {
     const TermsConditionsContent = {
@@ -185,12 +204,25 @@ app.get('/api/dynamicData', (req, res) => {
   });
 
   app.get('/api/about', (req, res) => {
-    const aboutUsText = 'We are dedicated to promoting peace, unity, compassion, and understanding among all people. Our flag symbolizes the hope for a more peaceful world.';
-    res.json({ aboutUsText });
+    const aboutContent = {
+      title: 'About the International Flag of Peace',
+      welcomeMessage: 'Welcome to the International Flag of Peace project. Our mission is to promote peace, unity, kindness, and tolerance among people from all walks of life, and every place in the world. This flag represents our commitment to a world where love, understanding, and compassion prevail.',
+      storyTitle: 'The Story Behind the Flag',
+      story: 'When the 9-11 attack happened, our visionary, Camille, felt a deep calling to create a symbol of peace that could belong to everyone living on this beautiful planet. That moment led to this journey of crafting the \'International Flag of Peace.\'',
+      messageTitle: 'Our Message',
+      message: 'The flag\'s colors and elements symbolize the core values of people everywhere. The blue represents peace, the green stands for harmony with nature and with each other, and the white symbolizes unity. Yellow is the sun, which is lighting our way each day; the heart, doves, and olive branches are the symbols of love. We believe in a world where kindness and charity prevail among our brothers and sisters everywhere.',
+      involvedTitle: 'Get Involved',
+      involvedMessage: 'If you resonate with our mission, we invite you to join us in promoting peace and spreading the message of the \'International Flag of Peace.\' Together, we can make our beautiful world a more peaceful place to live and thrive.',
+    };
+  
+    res.json(aboutContent);
   });
   
+  
+  
   app.get('/api/mission', (req, res) => {
-    const missionText = 'Your mission content goes here...';
+    const missionText = 'Our mission is to spread awareness about the International Flag of Peace and to inspire acts of kindness and charity. ' +
+    'We believe in creating a world where love, understanding, and compassion prevail. Join us in promoting peace and making a positive impact in our global community.';
     res.json({ missionText });
   });
 

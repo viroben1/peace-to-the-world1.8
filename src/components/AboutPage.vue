@@ -20,6 +20,7 @@
   </template>
   
   <script>
+  import axios from 'axios';
   export default {
     name: 'AboutPage',
     data() {
@@ -42,15 +43,22 @@
       }, 1000); // Simulated delay of 1 second
     },
     methods: {
-      fetchDataFromBackend() {
+    async fetchDataFromBackend() {
+      try {
         // Simulate fetching data from the backend API
+        const response = await axios.get('http://localhost:3000/api/about');
+
+        
         // Update the component data based on the fetched data
-        this.title = 'Updated Title from Backend';
-        this.welcomeMessage = 'Updated Welcome Message from Backend';
+        this.title = response.data.title;
+        this.welcomeMessage = response.data.welcomeMessage;
         // Repeat for other properties...
-      },
+      } catch (error) {
+        console.error('Error fetching data from backend:', error);
+      }
     },
-  };
+  },
+};
   </script>
   
   

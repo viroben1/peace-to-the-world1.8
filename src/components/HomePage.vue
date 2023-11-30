@@ -8,10 +8,13 @@
       <p class="text-sky-500">{{ aboutUsText }}</p>
     </section>
     <section class="mt-8">
-      <h2 class="text-2xl font-semibold text-blue-700">Our Mission</h2>
-      <p v-if="!missionText" class="text-sky-500">Loading mission data...</p>
-      <p v-else class="text-sky-500">{{ missionText }}</p>
-    </section>
+    <h2 class="text-2xl font-semibold text-blue-700">Our Mission</h2>
+    <p class="text-sky-500">
+        Our mission is to spread awareness about the International Flag of Peace and to inspire acts of kindness and charity. 
+        We believe in creating a world where love, understanding, and compassion prevail. Join us in promoting peace and making a positive impact in our global community.
+    </p>
+</section>
+
     <section class="mt-8">
       <h2 class="text-2xl font-semibold text-blue-700">Contact Us</h2>
       <p class="text-sky-500">
