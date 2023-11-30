@@ -1,19 +1,21 @@
 // router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
 
-import HomePage from '../Views/HomePageViews.vue';
+import HomePageViews from '../Views/HomePageViews.vue';
 import PrivacyPolicy from '../Views/PrivacyPolicyViews.vue';
 import RefundPolicy from '../Views/RefundPolicyViews.vue';
 import DeliveryPolicy from '../Views/DeliveryPolicyViews.vue';
-import TermsAndConditionsViews from '../Views/TermsAndConditionsPolicyViews.vue';
+import TermsConditionsPolicy from '../Views/TermsConditionsPolicyViews.vue';
+
 import FlagView from '../Views/FlagViews.vue'; // Import your FlagView
 import AboutPage from '../Views/AboutViews.vue';
 
 const routes = [
+  
   {
     path: '/HomePage',
     name: 'HomePage',
-    component: HomePage,
+    component: HomePageViews,
   },
   
   {
@@ -39,12 +41,16 @@ const routes = [
   {
     path: '/terms',
     name: 'TermsAndConditions',
-    component: TermsAndConditionsViews,
+    component: TermsConditionsPolicy,
   },
   {
     path: '/flag',
     name: 'FlagView',
     component: FlagView,
+  },
+  {
+    path: '/:catchAll(.*)',
+    redirect: '/HomePage',
   },
 ];
 

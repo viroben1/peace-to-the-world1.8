@@ -10,7 +10,7 @@
     <p class="text-xs text-gray-600">Last updated: {{ lastUpdatedDate }}</p>
     <p class="text-xs text-gray-600">
       Return to the{' '}
-      <router-link to="/" class="text-blue-500">
+      <router-link to="/Homepage" class="text-blue-500">
         home page
       </router-link>
       .
@@ -20,7 +20,6 @@
 
 <script>
 export default {
-  name: 'PolicyFooter',
   data() {
     return {
       lastUpdatedDate: '', // This will be populated with data fetched using Axios
@@ -33,7 +32,6 @@ export default {
   methods: {
     async fetchLastUpdatedDate() {
       try {
-        // Error occurs here: 'get' is undefined
         const response = await this.$axios.get('http://localhost:3000/api/last-updated');
         this.lastUpdatedDate = response.data.lastUpdatedDate;
       } catch (error) {

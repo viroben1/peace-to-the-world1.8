@@ -1,51 +1,59 @@
 <template>
   <div>
-    <PolicyContent
-      v-if="privacyPolicy"
-      :pageTitle="privacyPolicy.pageTitle || 'Privacy Policy'"
-      :pageContent="privacyPolicy.pageContent || 'Your privacy is important to us. This Privacy Policy outlines our practices concerning the collection, use, and disclosure of your personal information. By using our services, you consent to the practices described in this policy.'"
-    />
-    <PolicyFooter :lastUpdatedDate="lastUpdatedDate" />
+    <!-- <AppNavbar :dynamicData="dynamicData" /> -->
+    <PrivacyPolicyPage :privacyPolicyData="privacyPolicyData" />
+    <PolicyFooter></PolicyFooter>
   </div>
 </template>
 
 <script>
-import PolicyContent from '@/components/PolicyContent';
-import PolicyFooter from '@/components/PolicyFooter';
+// import AppNavbar from '../components/AppNavbar.vue';
+import PrivacyPolicyPage from '@/components/PrivacyPolicyPage.vue';
+import PolicyFooter from '@/components/PolicyFooter.vue';
 
 export default {
   components: {
-    PolicyContent,
+    // AppNavbar,
+    PrivacyPolicyPage,
     PolicyFooter,
   },
   data() {
     return {
-      privacyPolicy: null,
-      lastUpdatedDate: null,
+      privacyPolicyData: {
+        pageTitle: '',
+        pageContent: '',
+      },
+      dynamicData: {
+        pageTitle: '',
+        pageContent: '',
+      },
     };
   },
   mounted() {
-    // Fetch the privacy policy content from the backend when the component is mounted
-    this.fetchPrivacyPolicy();
-    this.fetchLastUpdatedDate();
+    this.fetchPrivacyPolicyData();
+    this.fetchDynamicData();
   },
   methods: {
-    async fetchPrivacyPolicy() {
+    async fetchPrivacyPolicyData() {
       try {
-        const response = await this.$axios.get('http://localhost:3000/api/privacy-policy');
-        this.privacyPolicy = response.data;
+        const response = await this.$axios.get('http://localhost:3000/api/pages/privacy-policy');
+        this.privacyPolicyData = response.data;
       } catch (error) {
-        console.error('Error fetching privacy policy content:', error);
+        console.error('Error fetching privacy policy data:', error);
       }
     },
-    async fetchLastUpdatedDate() {
+    async fetchDynamicData() {
       try {
-        const response = await this.$axios.get('http://localhost:3000/api/last-updated');
-        this.lastUpdatedDate = response.data.lastUpdatedDate;
+        const response = await this.$axios.get('http://localhost:3000/api/dynamicData');
+        this.dynamicData = response.data;
       } catch (error) {
-        console.error('Error fetching last updated date:', error);
+        console.error('Error fetching dynamic data:', error);
       }
     },
   },
 };
 </script>
+
+<style scoped>
+/* Styles for the view, if needed */
+</style>
