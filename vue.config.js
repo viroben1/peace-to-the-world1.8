@@ -1,4 +1,5 @@
-// vue.config.js
+const path = require('path');
+
 module.exports = {
   css: {
     loaderOptions: {
@@ -9,6 +10,15 @@ module.exports = {
             // Example: require('autoprefixer'),
           ],
         },
+      },
+    },
+  },
+  configureWebpack: {
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, 'src'),
+        '@services': path.resolve(__dirname, 'src/services'),
+        // Add other aliases if needed
       },
     },
   },

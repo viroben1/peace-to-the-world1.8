@@ -6,7 +6,7 @@ import PrivacyPolicy from '../Views/PrivacyPolicyViews.vue';
 import RefundPolicy from '../Views/RefundPolicyViews.vue';
 import DeliveryPolicy from '../Views/DeliveryPolicyViews.vue';
 import TermsConditionsPolicy from '../Views/TermsConditionsPolicyViews.vue';
-
+import ProductCheckout from '../components/ProductCheckout.vue'
 import FlagView from '../Views/FlagViews.vue'; // Import your FlagView
 import AboutPage from '../Views/AboutViews.vue';
 
@@ -51,6 +51,12 @@ const routes = [
   {
     path: '/:catchAll(.*)',
     redirect: '/HomePage',
+  },
+
+  {
+    path: '/ProductCheckout',
+    name: 'ProductCheckout',
+    component: ProductCheckout,
   },
 ];
 
