@@ -4,11 +4,15 @@
       :dynamicData="dynamicData"
       @updateDynamicData="updateDynamicData"
     />
+    
+    
     <PolicyFooter></PolicyFooter>
   </div>
 </template>
 
 <script>
+
+
 import TermsConditionsPolicyPage from '@/components/TermsConditionsPolicyPage.vue';
 import PolicyFooter from '@/components/PolicyFooter.vue';
 
@@ -16,6 +20,7 @@ export default {
   components: {
     TermsConditionsPolicyPage,
     PolicyFooter,
+   
   },
   data() {
     return {
@@ -23,6 +28,7 @@ export default {
         pageTitle: '',
         pageContent: '',
       },
+      
     };
   },
   methods: {
@@ -34,6 +40,8 @@ export default {
         console.error('Error fetching terms-conditions policy data:', error);
       }
     },
+    
+    
     updateDynamicData(newData) {
       // Update the dynamicData property in the parent component
       this.dynamicData = newData;
@@ -41,6 +49,7 @@ export default {
   },
   mounted() {
     this.fetchTermsConditionsPolicyData();
+    
   },
 };
 </script>

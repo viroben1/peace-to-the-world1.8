@@ -1,7 +1,14 @@
+
 const express = require('express');
 const cors = require('cors');
 const app = express();
 const port = 3000;
+const stripe = require('stripe');
+
+require('dotenv').config();
+
+const stripePrivateKey = process.env.STRIPE_PRIVATE_KEY;
+const stripeClient = stripe(stripePrivateKey);
 
 
 const contentData = {
@@ -246,7 +253,85 @@ app.get('/api/dynamicData', (req, res) => {
     res.json({ lastUpdatedDate });
   });
 // Add more API routes as needed...
+app.post('/create-payment-intent', async (req, res) => {
+  const { amount, currency } = req.body;
 
+  try {
+    // Create a payment intent using the stripeClient
+    const paymentIntent = await stripeClient.paymentIntents.create({
+      amount,
+      currency,
+    });
+
+    // Send the client secret to the front end
+    res.json({ clientSecret: paymentIntent.client_secret });
+  } catch (error) {
+    console.error('Error creating payment intent:', error);
+    res.status(500).send({ error: 'Failed to create payment intent' });
+  }
+});
+app.post(
+  "/stripe/webhook",
+  express.raw({ type: "application/json" }),
+  async (request, response) => {
+    const sig = request.headers["stripe-signature"];
+
+    let event;
+
+    try {
+      event = stripe.webhooks.constructEvent(
+        request.body,
+        sig,
+        process.env.END_POINT_SECRET
+      );
+      //   console.log("type", event);
+    } catch (err) {
+      //   console.log("type2", err);
+      response.status(400).send(`Webhook Error: ${err.message}`);
+    }
+
+    switch (event.type) {
+      case "payment_intent.succeeded":
+        // eslint-disable-next-line no-case-declarations, no-unused-vars
+        const paymentIntent = event.data.object;
+        console.log("PaymentIntent was successful!");
+        break;
+      case "payment_method.attached":
+        // eslint-disable-next-line no-case-declarations, no-unused-vars
+        const paymentMethod = event.data.object;
+        console.log("PaymentMethod was attached to a Customer!");
+        break;
+      // ... handle other event types
+      default:
+        console.log(`Unhandled event type ${event.type}`);
+    }
+
+    
+    // Return a response to acknowledge receipt of the event
+    response.json({ received: true });
+  
+  }
+  );
+    
+
+app.use(express.json());
+
+app.post("/stripe", async (request, response) => {
+  const { amount } = request.body;
+  // Should calculate server side
+
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount,
+      currency: "usd"
+    });
+
+    response.status(200).send({ secret: paymentIntent.client_secret });
+  } catch (error) {
+    console.log("error", error);
+    response.status(500).send("error" + error);
+  }
+});
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
