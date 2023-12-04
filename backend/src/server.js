@@ -316,7 +316,7 @@ app.post(
 
 app.use(express.json());
 
-app.post("/stripe", async (request, response) => {
+app.post("/api/stripe", async (request, response) => {
   const { amount } = request.body;
   // Should calculate server side
 

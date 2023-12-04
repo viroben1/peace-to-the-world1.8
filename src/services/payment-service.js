@@ -1,13 +1,13 @@
 // services/payment-service.js
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:3001';
+const API_BASE_URL = 'http://localhost:3001/api';
 
 export const PaymentService = {
   async initiatePayment(amount, loadStripe) {
     try {
-      const response = await axios.post(`${API_BASE_URL}/stripe`, { amount });
-      const secret = response.data.secret;
+       const response = await axios.post(`${API_BASE_URL}/stripe`, { amount });
+       const secret = response.data.secret;
       const stripe = await loadStripe("pk_test_51O481TImUxx0P9DAFuUKrU4mPWUfjIFYBROmL8wyzfSUR8RNnQJuhbfxcryZO3J6lL2zP9Sm8gkSu4GkhiKllHWg00hIjQ6GRQ");
       return { secret, stripe };
     } catch (error) {

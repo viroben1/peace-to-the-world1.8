@@ -1,5 +1,5 @@
 <template>
-  <div class=" bg-yellow-100 text-cyan-600 text-lg">
+  <div class="bg-yellow-400 text-cyan-600 text-lg">
     <section class="showcase">
       <div class="nes-container with-title">
         <h3>{{ product.name }} {{ product.price }}</h3>
@@ -9,91 +9,91 @@
       </div>
     </section>
     <div class="nes-container with-title is-centered">
-    <form @submit.prevent="handleSubmit">
-      <fieldset :class="{ dis: loading }" class="fields">
-        <div class="nes-field"></div>
+      <form @submit.prevent="handleSubmit">
+        <fieldset :class="{ dis: loading }" class="fields">
+          <div class="nes-field"></div>
+          <div class="nes-field">
+            <label for="name_field">Name</label>
+            <input
+              placeholder="Jane Doe"
+              type="text"
+              name="name"
+              id="name_field"
+              class="nes-input"
+            />
+          </div>
+          <div class="nes-field">
+            <label for="email_field">Email</label>
+            <input
+              placeholder="jane.doe@example.com "
+              type="email"
+              name="email"
+              id="email_field"
+              class="nes-input"
+            />
+          </div>
+          <div class="nes-field">
+            <label for="address_field">Address</label>
+            <input
+              placeholder="1234 Sycamore Street"
+              type="text"
+              name="address"
+              id="address_field"
+              class="nes-input"
+            />
+          </div>
+          <div class="nes-field">
+            <label for="city_field">City</label>
+            <input
+              placeholder="Reno"
+              type="text"
+              name="city"
+              id="city_field"
+              class="nes-input"
+            />
+          </div>
+          <div class="nes-field">
+            <label for="state_field">State</label>
+            <input
+              placeholder="Nevada"
+              type="text"
+              name="state"
+              id="state_field"
+              class="nes-input"
+            />
+          </div>
+          <div class="nes-field">
+            <label for="zip_field">Zip</label>
+            <input
+              placeholder="89523"
+              type="text"
+              name="zip"
+              id="zip_field"
+              class="nes-input"
+            />
+          </div>
+          <div class="nes-field">
+            <label for="email_field">email</label>
+            <div id="stripe-element-mount-point" class="nes-input" />
+          </div>
+        </fieldset>
         <div class="nes-field">
-          <label for="name_field">Name</label>
-          <input
-            placeholder="Jane Doe"
-            type="text"
-            name="name"
-            id="name_field"
-            class="nes-input"
-          />
+          <button
+            type="submit"
+            class="nes-btn is-primary"
+            :class="{ dis: loading }"
+          >
+            {{ loading ? "Loading..." : "submit" }}
+          </button>
         </div>
-        <div class="nes-field">
-          <label for="email_field">Email</label>
-          <input
-            placeholder="jane.doe@example.com "
-            type="email"
-            name="email"
-            id="email_field"
-            class="nes-input"
-          />
-        </div>
-        <div class="nes-field">
-          <label for="address_field">Address</label>
-          <input
-            placeholder="1234 Sycamore Street"
-            type="text"
-            name="address"
-            id="address_field"
-            class="nes-input"
-          />
-        </div>
-        <div class="nes-field">
-          <label for="city_field">City</label>
-          <input
-            placeholder="Reno"
-            type="text"
-            name="city"
-            id="city_field"
-            class="nes-input"
-          />
-        </div>
-        <div class="nes-field">
-          <label for="state_field">State</label>
-          <input
-            placeholder="Nevada"
-            type="text"
-            name="state"
-            id="state_field"
-            class="nes-input"
-          />
-        </div>
-        <div class="nes-field">
-          <label for="zip_field">Zip</label>
-          <input
-            placeholder="89523"
-            type="text"
-            name="zip"
-            id="zip_field"
-            class="nes-input"
-          />
-        </div>
-        <div class="nes-field">
-          <label for="email_field"></label>
-          <div id="stripe-element-mount-point" class="nes-input" />
-        </div>
-      </fieldset>
-      <div class="nes-field">
-        <button
-          type="submit"
-          class="nes-btn is-primary"
-          :class="{ dis: loading }"
-        >
-          {{ loading ? "Loading..." : "" }}
-        </button>
-      </div>
-    </form>
-  </div>
-  
-  <div class="nes-field mt">
-    <button type="button" class="nes-btn is-success" @click="redirect">
-     
-    </button>
-  </div>
+      </form>
+    </div>
+
+    <!-- <div class="nes-field mt"> -->
+      <!-- <button type="button" class="nes-btn is-success" @click="redirect"> -->
+        <!-- redirect -->
+      <!-- </button> -->
+    <!-- </div> -->
   </div>
 </template>
 
@@ -101,9 +101,9 @@
 import { onMounted, ref, toRefs } from "vue";
 import { useRouter } from "vue-router";
 import { loadStripe } from "@stripe/stripe-js";
-import * as api from "../services/api";
-import { initiatePayment, createPaymentMethod, performPayment as performStripePayment } from "../services/payment-service";
-import { performPayment  as performPaymentUtil } from "../services/payment-utils";
+// Importing the module in another file
+import { PaymentService } from '../services/payment-service';
+import { performPayment as performPaymentUtil } from "../services/payment-utils";
 const style = {
   style: {
     base: {
@@ -114,19 +114,18 @@ const style = {
       fontSize: "22px",
       fontSmoothing: "antialiased",
       ":-webkit-autofill": {
-        color: "#fce883"
+        color: "#fce883",
       },
       "::placeholder": {
-        color: "green"
-      }
+        color: "green",
+      },
     },
     invalid: {
       iconColor: "#FFC7EE",
-      color: "red"
-    }
-  }
+      color: "red",
+    },
+  },
 };
-
 
 export default {
   props: {
@@ -137,6 +136,7 @@ export default {
   },
   setup(props) {
     const { product } = toRefs(props);
+    // eslint-disable-next-line no-unused-vars
     const router = useRouter();
     let stripe = null;
     let loading = ref(true);
@@ -155,7 +155,9 @@ export default {
     onMounted(async () => {
       const ELEMENT_TYPE = "card";
 
-      stripe = await loadStripe("pk_test_51O481TImUxx0P9DAFuUKrU4mPWUfjIFYBROmL8wyzfSUR8RNnQJuhbfxcryZO3J6lL2zP9Sm8gkSu4GkhiKllHWg00hIjQ6GRQ");
+      stripe = await loadStripe(
+        "pk_test_51O481TImUxx0P9DAFuUKrU4mPWUfjIFYBROmL8wyzfSUR8RNnQJuhbfxcryZO3J6lL2zP9Sm8gkSu4GkhiKllHWg00hIjQ6GRQ"
+      );
       elements = stripe.elements();
       cardElement = elements.create(ELEMENT_TYPE, style);
       console.log(elements, ELEMENT_TYPE, cardElement);
@@ -177,30 +179,32 @@ export default {
           postal_code: formData.value.zip,
         },
       };
+      
+  try {
+    // Step 1: Initiate Payment on the Server
+    const { secret, stripe } = await PaymentService.initiatePayment(1999, loadStripe);
 
-      try {
-        // Step 1: Initiate Payment on the Server
-        apiResponse = await api.someApiFunction(); // Use the imported api
-        console.log(apiResponse); // Log the API response
+    // Step 2: Create Payment Method on the Client
+    const paymentMethodId = await PaymentService.createPaymentMethod(
+      stripe,
+      cardElement,
+      billingDetails
+    );
 
-        const { secret } = await initiatePayment(1999);
+    // Step 3: Use the Common Payment Logic
+    await PaymentService.performPayment(secret, paymentMethodId);
 
-        // Step 2: Create Payment Method on the Client
-        const paymentMethodId = await createPaymentMethod(stripe, cardElement, billingDetails);
+    // Step 4: Use the performPayment utility
+    await performPaymentUtil(); // Add parameters if needed
 
-        // Step 3: Use the Common Payment Logic
-        await performStripePayment(secret, paymentMethodId); // Use performStripePayment
-// Step 4: Use the performPayment utility
-await performPaymentUtil(); // Add parameters if needed
-        // Step 4: Redirect Logic if Needed
-        router.push("/success");
-      } catch (error) {
-        console.error("Error processing payment:", error.message);
-        loading.value = false;
-      }
-    }
-
-    function redirect() {
+    // Step 5: Redirect Logic if Needed
+    this.$router.push('/success');
+  } catch (error) {
+    console.error('Error processing payment:', error.message);
+    // Handle error scenario
+  }
+}
+function redirect() {
       stripe.redirectToCheckout({
         successUrl: "http://localhost:3000/success",
         cancelUrl: "http://localhost:3000",
@@ -215,39 +219,8 @@ await performPaymentUtil(); // Add parameters if needed
     }
 
     // eslint-disable-next-line vue/no-dupe-keys
-    return { formData, loading, handleSubmit, redirect, product, apiResponse, };
-  },
+    return { formData, loading,  handleSubmit, redirect, product, apiResponse };
+  }
 };
 </script>
 
-<style scoped>
-.checkout {
-  border: 1px solid black;
-  padding: 3px;
-}
-
-.fields {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  gap: 30px;
-}
-.img {
-  display: flex;
-  justify-content: center;
-}
-.showcase {
-  margin-bottom: 20px;
-}
-.mt {
-  margin-top: 20px;
-}
-.dis {
-  opacity: 0.5;
-  cursor: default;
-  pointer-events: none;
-}
-button {
-  margin-top: 30px;
-}
-</style>
