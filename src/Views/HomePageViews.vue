@@ -2,7 +2,7 @@
     <div>
       <HomeContent v-if="isPolicyPage" :policyData="policyData" />
       <HomePage v-else />
-      <ProductCheckout :product="currentProduct" @checkout="checkout" />
+      <checkOut :product="currentProduct" @checkout="checkout" />
     </div>
   </template>
   
@@ -11,13 +11,13 @@
   import HomePage from '../components/HomePage.vue';
   import * as api from '../services/api.js';
 import { performPayment } from '../services/payment-utils.js';
-import ProductCheckout from '../components/ProductCheckout.vue';
+import checkOut from "./check-out.vue";
   export default {
     name: 'HomeView',
     components: {
       HomeContent,
       HomePage,
-      ProductCheckout,
+      checkOut,
     },
     data() {
       return {

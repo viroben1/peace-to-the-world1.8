@@ -1,9 +1,14 @@
-
 const express = require('express');
+const bodyParser = require('body-parser');
 const cors = require('cors');
+const axios = require('axios');
+const stripe = require('stripe');
+
 const app = express();
 const port = 3000;
-const stripe = require('stripe');
+
+// Rest of your code remains unchanged
+
 
 require('dotenv').config();
 
@@ -316,7 +321,7 @@ app.post(
 
 app.use(express.json());
 
-app.post("/api/stripe", async (request, response) => {
+app.post("/stripe", async (request, response) => {
   const { amount } = request.body;
   // Should calculate server side
 

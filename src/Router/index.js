@@ -6,9 +6,11 @@ import PrivacyPolicy from '../Views/PrivacyPolicyViews.vue';
 import RefundPolicy from '../Views/RefundPolicyViews.vue';
 import DeliveryPolicy from '../Views/DeliveryPolicyViews.vue';
 import TermsConditionsPolicy from '../Views/TermsConditionsPolicyViews.vue';
-import ProductCheckout from '../components/ProductCheckout.vue'
+import CheckOut from '../components/check-out.vue'
 import FlagView from '../Views/FlagViews.vue'; // Import your FlagView
 import AboutPage from '../Views/AboutViews.vue';
+import Failure from '../components/failure.vue'
+import Success from '../components/success.vue'
 
 const routes = [
   
@@ -54,10 +56,20 @@ const routes = [
   },
 
   {
-    path: '/ProductCheckout',
-    name: 'ProductCheckout',
-    component: ProductCheckout,
+    path: '/checkout',
+    name: 'CheckOut',
+    component: CheckOut,
   },
+  {
+    path: "/failure",
+    name: "Failure",
+    component: Failure
+  },
+  {
+    path: "/success",
+    name: "Success",
+    component: Success
+  }
 ];
 
 const router = createRouter({

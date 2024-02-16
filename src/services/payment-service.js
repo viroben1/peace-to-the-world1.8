@@ -1,7 +1,7 @@
 // services/payment-service.js
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:3001/api';
+const API_BASE_URL = 'http://localhost:3000/stripe';
 
 export const PaymentService = {
   async initiatePayment(amount, loadStripe) {
